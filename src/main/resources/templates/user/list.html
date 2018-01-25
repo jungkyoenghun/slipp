@@ -5,19 +5,18 @@
     <meta charset="utf-8">
     <title>SLiPP Java Web Programming</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-    <link href="/css/styles.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar navbar-fixed-top header">
     <div class="col-md-12">
         <div class="navbar-header">
 
-            <a href="/" class="navbar-brand">SatuRn</a>
+            <a href="../index.html" class="navbar-brand">SLiPP</a>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse1">
                 <i class="glyphicon glyphicon-search"></i>
             </button>
@@ -40,7 +39,7 @@
                         <li><a href="https://facebook.com" target="_blank">Facebook</a></li>
                     </ul>
                 </li>
-                <li><a href="../users"><i class="glyphicon glyphicon-user"></i></a></li>
+                <li><a href="../user/list.html"><i class="glyphicon glyphicon-user"></i></a></li>
             </ul>
         </div>
     </div>
@@ -63,15 +62,12 @@
             </button>            
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse2">
+            <ul class="nav navbar-nav navbar-right">
                 <li class="active"><a href="../index.html">Posts</a></li>
-
-                <li><a href="/users/loginForm" role="button">로그인</a></li>
-                <li><a href="/users/form" role="button">회원가입</a></li>
-
-                <li><a href="/users/logout" role="button">로그아웃</a></li>
-                <li><a href="/users//form" role="button">개인정보수정</a></li>
-
-            </ul>
+                <li><a href="../user/login.html" role="button">로그인</a></li>
+                <li><a href="../user/form.html" role="button">회원가입</a></li>
+                <li><a href="#" role="button">로그아웃</a></li>
+                <li><a href="#" role="button">개인정보수정</a></li>
             </ul>
         </div>
     </div>
@@ -89,8 +85,8 @@
               <tbody>
               {{#users}}
                 <tr>
-                    <th scope="row"></th> 
-                    <td>{{id}}</td> 
+                    <th scope="row">{{id}}</th> 
+                    <td>{{userId}}</td> 
                     <td>{{username}}</td> 
                     <td>{{email}}</td>
                     <td><a href="/users//form" class="btn btn-success" role="button">수정</a></td>
@@ -103,8 +99,8 @@
 </div>
 
 <!-- script references -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="../js/jquery-2.2.0.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/scripts.js"></script>
 	</body>
 </html>
