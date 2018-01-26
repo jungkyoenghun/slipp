@@ -10,8 +10,8 @@ public class User {
 	@Id
 	@GeneratedValue
 	private Long id;
-	
-	@Column(nullable=false, length =20 )
+
+	@Column(nullable = false, length = 20)
 	private String userId;
 	private String password;
 	private String username;
@@ -37,6 +37,13 @@ public class User {
 	public String toString() {
 		return "User [userId=" + userId + ", password=" + password + ", username=" + username + ", email=" + email
 				+ "]";
+	}
+
+	public void update(User newUser) {
+		this.password = newUser.password;
+		this.username = newUser.username;
+		this.email = newUser.email;
+
 	}
 
 }
