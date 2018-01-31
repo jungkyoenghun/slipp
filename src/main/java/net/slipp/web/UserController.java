@@ -1,5 +1,7 @@
 package net.slipp.web;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,45 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@GetMapping("/loginForm")
+	public String loginForm() {
+		return "/user/login";
+	}
+
+	@PostMapping("/login")
+	//session을 사용 하기 위해 HttpSession을 이용한다.
+	public String login(String userId, String password, HttpSession session) {
+		
+		//userId 정보를 이용하여 조회하기 위하여 UserRepository에 findbyUserId 를 만들어 사용한다
+		//User user = userRepository.findbyUserId(userId);
+		User user = userRepository.findByUserId(userId);
+		//user에 정보가 없다면
+		if (user == null) {
+			
+			System.out.println("Login Failure !!!!!");
+			
+			return "redirct:/users/loginForm";
+		}
+
+		
+		//패스워드가 일치하지 않다면, getPassword User에 만들어 줌
+		if (!password.equals(user.getPassword())) {
+			
+			System.out.println("Login Failure !!!!!");
+			
+			return "redirct:/users/loginForm";
+
+		}
+
+		
+		System.out.println("Login Success !!!!!");
+		//session에 user의 정보를 담는다
+		session.setAttribute("user", user);
+
+		return "redirect:/";
+
+	}
 
 	@GetMapping("/form")
 	public String form() {
@@ -43,15 +84,15 @@ public class UserController {
 
 	@GetMapping("/{id}/form")
 	public String updateform(@PathVariable Long id, Model model) {
-		
+
 		User user = userRepository.findOne(id);
 		model.addAttribute("user", user);
 		return "/user/updateForm";
 	}
-	
-	//@PostMapping("/{id}")
+
+	// @PostMapping("/{id}")
 	@PutMapping("/{id}")
-	public String update(@PathVariable Long id, User newUser){
+	public String update(@PathVariable Long id, User newUser) {
 		User user = userRepository.findOne(id);
 		user.update(newUser);
 		userRepository.save(user);
