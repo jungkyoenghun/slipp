@@ -29,37 +29,43 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	//session을 사용 하기 위해 HttpSession을 이용한다.
+	// session을 사용 하기 위해 HttpSession을 이용한다.
 	public String login(String userId, String password, HttpSession session) {
-		
-		//userId 정보를 이용하여 조회하기 위하여 UserRepository에 findbyUserId 를 만들어 사용한다
-		//User user = userRepository.findbyUserId(userId);
+
+		// userId 정보를 이용하여 조회하기 위하여 UserRepository에 findbyUserId 를 만들어 사용한다
+		// User user = userRepository.findbyUserId(userId);
 		User user = userRepository.findByUserId(userId);
-		//user에 정보가 없다면
+		// user에 정보가 없다면
 		if (user == null) {
-			
+
 			System.out.println("Login Failure !!!!!");
-			
+
 			return "redirct:/users/loginForm";
 		}
 
-		
-		//패스워드가 일치하지 않다면, getPassword User에 만들어 줌
+		// 패스워드가 일치하지 않다면, getPassword User에 만들어 줌
 		if (!password.equals(user.getPassword())) {
-			
+
 			System.out.println("Login Failure !!!!!");
-			
+
 			return "redirct:/users/loginForm";
 
 		}
 
-		
 		System.out.println("Login Success !!!!!");
-		//session에 user의 정보를 담는다
+		// session에 user의 정보를 담는다
 		session.setAttribute("user", user);
 
 		return "redirect:/";
 
+	}
+
+	@GetMapping("logout")
+	public String logout(HttpSession session) {
+
+		session.removeAttribute("user");
+
+		return "redirect:/";
 	}
 
 	@GetMapping("/form")
