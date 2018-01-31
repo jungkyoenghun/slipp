@@ -38,7 +38,9 @@ public class UserController {
 		// user에 정보가 없다면
 		if (user == null) {
 
-			System.out.println("Login Failure !!!!!");
+			System.out.println("Login Failure 1 !!!!!");
+			
+			System.out.println(user);
 
 			return "redirct:/users/loginForm";
 		}
@@ -46,15 +48,21 @@ public class UserController {
 		// 패스워드가 일치하지 않다면, getPassword User에 만들어 줌
 		if (!password.equals(user.getPassword())) {
 
-			System.out.println("Login Failure !!!!!");
+			System.out.println("Login Failure 2 !!!!!");
+			
+			System.out.println(user.getPassword());
 
 			return "redirct:/users/loginForm";
 
 		}
 
-		System.out.println("Login Success !!!!!");
+		System.out.println("Login Success  !!!!!");
 		// session에 user의 정보를 담는다
-		session.setAttribute("user", user);
+		session.setAttribute("sessionedUser", user);
+		
+		Object sessionedUser2 = session.getAttribute("sessionedUser");
+		
+		System.out.println(sessionedUser2);
 
 		return "redirect:/";
 
@@ -63,7 +71,7 @@ public class UserController {
 	@GetMapping("logout")
 	public String logout(HttpSession session) {
 
-		session.removeAttribute("user");
+		session.removeAttribute("sessionedUser");
 
 		return "redirect:/";
 	}
@@ -89,7 +97,31 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}/form")
-	public String updateform(@PathVariable Long id, Model model) {
+	public String updateform(@PathVariable Long id, Model model, HttpSession session) {
+		
+		
+		//session에서 데이터를 꺼내오면 기본적으로 Object 타입이다.
+		
+		//User sessionedUser = session.getAttribute("sessionedUser");
+		//Object sessionedUser = session.getAttribute("sessionedUser");
+		Object tempUser = session.getAttribute("sessionedUser");
+		
+		System.out.println(tempUser);
+		
+		if(tempUser == null){
+			
+			System.out.println("Missing Sesssion info !!!!!");
+			
+			return "redirect:/users/loginForm";
+			
+		}
+		
+		User sessionedUser = (User)tempUser;
+		if (!id.equals(sessionedUser.getId())){
+			throw new IllegalStateException("You can not update another user !!!.");
+		}
+		
+		
 
 		User user = userRepository.findOne(id);
 		model.addAttribute("user", user);
@@ -98,9 +130,32 @@ public class UserController {
 
 	// @PostMapping("/{id}")
 	@PutMapping("/{id}")
-	public String update(@PathVariable Long id, User newUser) {
+	public String update(@PathVariable Long id, User updatedUser, HttpSession session) {
+		
+		//session에서 데이터를 꺼내오면 기본적으로 Object 타입이다.
+		
+		//User sessionedUser = session.getAttribute("sessionedUser");
+		//Object sessionedUser = session.getAttribute("sessionedUser");
+		Object tempUser = session.getAttribute("sessionedUser");
+		
+		System.out.println(tempUser);
+		
+		if(tempUser == null){
+			
+			System.out.println("Missing Sesssion info !!!!!");
+			
+			return "redirect:/users/loginForm";
+			
+		}
+		
+		User sessionedUser = (User)tempUser;
+		if (!id.equals(sessionedUser.getId())){
+			throw new IllegalStateException("You can not update another user !!!.");
+		}
+		
+		
 		User user = userRepository.findOne(id);
-		user.update(newUser);
+		user.update(updatedUser);
 		userRepository.save(user);
 		return "redirect:/users";
 	}
