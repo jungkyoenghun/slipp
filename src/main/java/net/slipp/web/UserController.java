@@ -61,9 +61,9 @@ public class UserController {
 		// session에 user의 정보를 담는다
 		session.setAttribute(HttpSessionUtils.USER_SESSION_KEY, user);
 
-		Object sessionedUser2 = session.getAttribute("sessionedUser");
+		Object sessionedUser = session.getAttribute("sessionedUser");
 
-		System.out.println(sessionedUser2);
+		System.out.println(sessionedUser);
 
 		return "redirect:/";
 
@@ -106,7 +106,7 @@ public class UserController {
 
 		// if(tempUser == null){
 
-		if (HttpSessionUtils.isLoginUser(session)) {
+		if (!HttpSessionUtils.isLoginUser(session)) {
 
 			return "redirect:/users/loginForm";
 
@@ -134,7 +134,7 @@ public class UserController {
 
 		// if(tempUser == null){
 
-		if (HttpSessionUtils.isLoginUser(session)) {
+		if (!HttpSessionUtils.isLoginUser(session)) {
 
 			return "redirect:/users/loginForm";
 
