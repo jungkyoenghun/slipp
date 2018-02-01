@@ -61,9 +61,9 @@ public class UserController {
 		// session에 user의 정보를 담는다
 		session.setAttribute(HttpSessionUtils.USER_SESSION_KEY, user);
 
-		Object sessionedUser = session.getAttribute("sessionedUser");
+		//Object sessionedUser = session.getAttribute("sessionedUser");
 
-		System.out.println(sessionedUser);
+		//System.out.println(sessionedUser);
 
 		return "redirect:/";
 
