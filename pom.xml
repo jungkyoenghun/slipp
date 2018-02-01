@@ -9,7 +9,7 @@
 	<packaging>war</packaging>
 
 	<name>my-slipp</name>
-	<description>Slipp Q&amp;A</description>
+	<description>Slipp QnA</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
