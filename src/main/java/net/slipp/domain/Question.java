@@ -1,5 +1,8 @@
 package net.slipp.domain;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -29,6 +32,9 @@ public class Question {
 	
 	private String contents;
 	
+	//java 8 부터 새로운 api 추가
+	private LocalDateTime createDate;
+	
 	
 	//jap에서는 디폴트 생성자를 만들어 주어야 한다. 인자를 받는 생성자 外
 	public Question() {}
@@ -40,10 +46,17 @@ public class Question {
 		this.writer = writer;
 		this.title = title;
 		this.contents = contents;
+		this.createDate = LocalDateTime.now();
 	}
 
 
-	
+	public String getFormattedCreateDate() {
+		if(createDate == null) {
+			return "";
+		}
+		
+		return createDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss"));
+	}
 	
 	
 	
