@@ -2,14 +2,17 @@ package net.slipp.domain;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 @Entity
 public class Question {
@@ -30,10 +33,16 @@ public class Question {
 	
 	private String title;
 	
+	@Lob
 	private String contents;
 	
 	//java 8 부터 새로운 api 추가
 	private LocalDateTime createDate;
+	
+	
+	@OneToMany(mappedBy="question")
+	@OrderBy("id ASC")
+	private List<Answer> answers;
 	
 	
 	//jap에서는 디폴트 생성자를 만들어 주어야 한다. 인자를 받는 생성자 外
