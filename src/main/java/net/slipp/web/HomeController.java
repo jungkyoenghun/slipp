@@ -11,6 +11,7 @@ import net.slipp.domain.QuestionRepository;
 public class HomeController {
 	
 	@Autowired
+<<<<<<< HEAD
 	private QuestionRepository questionRpository;
 	
 	@GetMapping("")
@@ -20,6 +21,13 @@ public class HomeController {
 		
 		model.addAttribute("questions", questionRpository.findAll());
 			
+=======
+	private QuestionRepository questionRepository;
+	
+	@GetMapping("")
+	public String home(Model model){
+			model.addAttribute("questions", questionRepository.findAll());
+>>>>>>> new
 		return "index";
 	}
 
